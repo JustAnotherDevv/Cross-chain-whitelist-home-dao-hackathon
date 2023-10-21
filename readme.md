@@ -2,17 +2,29 @@
 
 THis project was created for the Home DAO hack 2023.
 
+![Cross-chain whitelist logo](/images/whitelist_icon.PNG)
+
 # Overview
 
 This project uses custom Chainlink data feeds that I created and served from my own Chainlink node.
 This allows for access to whitelist for addresses on EVM chains like Eehereum, Avalanche(any other EVM chains), Solana.
 
-Bounties I am applying for:
+### How it works
+
+Backend represents simple example of centralized whitelist with public API that could be used by the company like TruFin.
+
+Chainlink nodes deployed to every needed chain request the data from this API and send it back to the smart contracts.
+
+Operator smart contracts faciliates connection between protocol's smart contract and Chainlink node.
+
+Whitelist check smart contract contains example use of checking whether or not given user is whitelisted.
+
+### Bounties I am applying for:
 - Chainlink track
 - Main track
 - Defi track from TruFin (challenge #1 with whitelist)
 
-Current MVP version includes:
+### Current MVP version includes:
 - Simple example nodeJS backend serving centralized whitelist with option of adding new addresses for multiple chains, getting confirmation if 
 given address is included in the whitelist or not.
 - Chainlink node serving custom data feed from the API.
@@ -48,3 +60,11 @@ Example Solidity Operator and Whitelist checker smart contracts are available in
 
 LINK token smart contract has to be changed according to official adresses provided by the Chainlink [here](https://docs.chain.link/resources/link-token-contracts).
 API endpoint also has to be modified and changed to yours depending on which IP address and port are you using. Recommendation is to run it on the VPS.
+
+Adresses of my contracts deployed for testing:
+
+Ethereum Sepolia:
+
+Avalanche Fuji:
+
+Solana devnet:
