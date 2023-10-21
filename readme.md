@@ -5,10 +5,10 @@ THis project was created for the Home DAO hack 2023.
 # Overview
 
 This project uses custom Chainlink data feeds that I created and served from my own Chainlink node.
-This allows for access to whitelist for addresses on EVM chains like EThereum, Avalanche, Solana.
+This allows for access to whitelist for addresses on EVM chains like Eehereum, Avalanche(any other EVM chains), Solana.
 
 Bounties I am applying for:
-- Chainlink
+- Chainlink track
 - Main track
 - Defi track from TruFin (challenge #1 with whitelist)
 
@@ -20,20 +20,31 @@ given address is included in the whitelist or not.
 
 # Setup
 
-
+ToDO
 
 ## Frontend
 
-
+ToDo
 
 ## Backend
 
+- run `npm i` to install dependencies
+- run `npm run build` to run server in production mode
 
+Make sure that the port is open and available publicly
 
-## Chainlink node
+## Chainlink nodes
 
+Currently the multi-chain node funcionality is in the beta so recommended way is to do a separate setup for each chain
 
+Follow instructions from [here to setup node](https://docs.chain.link/chainlink-nodes/v1/running-a-chainlink-node#overview) and from [here to create jobs](https://docs.chain.link/chainlink-nodes/v1/fulfilling-requests). These steps have to be repeated for every chain that should be supported and configuration for each chain has to be customized with different `chainId` and RPC for http/wss connection.
 
 ## Smart contracts
 
+Smart contracts have to be deployed separately on each chain that should be supported, then they have to be configured to allow data feed from node for selected chain.
+Standard setup for this step is also included in the fullfilling requests chainlink documentation page.
 
+Example Solidity Operator and Whitelist checker smart contracts are available in the hardhat directory.
+
+LINK token smart contract has to be changed according to official adresses provided by the Chainlink [here](https://docs.chain.link/resources/link-token-contracts).
+API endpoint also has to be modified and changed to yours depending on which IP address and port are you using. Recommendation is to run it on the VPS.

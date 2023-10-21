@@ -1,0 +1,17 @@
+[Log]
+Level = 'warn'
+
+[WebServer]
+AllowOrigins = '\*'
+SecureCookies = false
+
+[WebServer.TLS]
+HTTPSPort = 0
+
+[[EVM]]
+ChainID = '43113'
+
+[[EVM.Nodes]]
+Name = 'AvalancheFuji'
+WSURL = '<QUICKNODE_WSS_URL_FOR_AVALANCHE_FUJI_TESTNET>'
+HTTPURL = '<QUICKNODE_HTTP_URL_FOR_AVALANCHE_FUJI_TESTNET>'
