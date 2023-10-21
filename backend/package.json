@@ -1,11 +1,11 @@
 {
-  "name": "backend",
+  "name": "cross-chain-whitelist-api-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "build": "node server.js",
+    "start": "nodemon index.js",
+    "build": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
