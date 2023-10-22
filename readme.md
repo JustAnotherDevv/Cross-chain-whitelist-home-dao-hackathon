@@ -11,7 +11,7 @@ This allows for access to whitelist for addresses on EVM chains like Eehereum, A
 
 ### How it works
 
-![Infrastructure graph](/images/howitworks.svg)
+![Infrastructure graph](/images/howitworks2.svg)
 
 Backend represents simple example of centralized whitelist with public API that could be used by the company like TruFin.
 
