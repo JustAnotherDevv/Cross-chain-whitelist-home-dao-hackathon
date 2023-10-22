@@ -83,7 +83,7 @@ Operator smart contracts faciliates connection between protocol's smart contract
 
 
 ### Bounties I am applying for:
-- Chainlink track
+- Chainlink track - Best project using other Chainlink Services
 - Main track
 - Defi track from TruFin (challenge #1 with whitelist)
 
@@ -99,7 +99,9 @@ ToDO
 
 ## Frontend
 
-ToDo
+- run `cd scaffold-eth-2`
+- install dependencies with `yarn install`
+- start dApp with `yarn start`
 
 ## Backend
 
@@ -137,3 +139,7 @@ Avalanche Fuji:
 Solana devnet:
 - 
 - 
+
+run `yarn deploy` in `scaffold-eth-2` subdirectory to deploy Solidity smart contracts, don't forget to modify and reconfigure them in the first place for your chosen chain.
+
+Project's dApp was bootstrapped based on [scaffold-eth2](https://github.com/scaffold-eth/scaffold-eth-2).

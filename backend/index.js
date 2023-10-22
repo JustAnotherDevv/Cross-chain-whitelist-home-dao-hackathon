@@ -26,14 +26,16 @@ const addAddressToTheWhitelist = async (address) => {
 }
 
 const checkIfAddressIsIncluded = async (address) => {
-    try {
-        const isIncluded = await whitelist.includes(address)
-        return isIncluded
-    } catch (error) {
-        console.error(error);
-        return false
-      }
+  try {
+      const lowerStr = address.toLowerCase();
+      return whitelist.some(item => item.toLowerCase() === lowerStr);
+
+  } catch (error) {
+      console.error(error);
+      return false
+    }
 }
+
 
 // API endpoints
 
