@@ -4,21 +4,15 @@ pragma solidity ^0.8.7;
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "@chainlink/contracts/src/v0.8/shared/access/ConfirmedOwner.sol";
 
-/**
- * THIS IS AN EXAMPLE CONTRACT THAT USES UN-AUDITED CODE.
- * DO NOT USE THIS CODE IN PRODUCTION.
- */
-
-contract ATestnetConsumer is ChainlinkClient, ConfirmedOwner {
+contract whitelistTester is ChainlinkClient, ConfirmedOwner {
     using Chainlink for Chainlink.Request;
 
     uint256 private constant ORACLE_PAYMENT = (1 * LINK_DIVISIBILITY) / 10; // 0.1 * 10**18
-    // uint256 public currentPrice;
-    bool public currentPrice;
 
-    event RequestEthereumPriceFulfilled(
+    mapping(address => bool) public isWhitelisted;
+
+    event RequestWhitelistInfoFulfilled(
         bytes32 indexed requestId,
-        // uint256 indexed price
         bool indexed price
     );
 
@@ -28,10 +22,11 @@ contract ATestnetConsumer is ChainlinkClient, ConfirmedOwner {
      * @dev Check https://docs.chain.link/docs/link-token-contracts/ for LINK address for the right network
      */
     constructor() ConfirmedOwner(msg.sender) {
-        setChainlinkToken(0x779877A7B0D9E8603169DdbD7836e478b4624789);
+        // setChainlinkToken(0x779877A7B0D9E8603169DdbD7836e478b4624789); // Sepolia
+        setChainlinkToken(0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846); // Fuji
     }
 
-    function requestEthereumPrice(
+    function requestWhitelistInfo(
         address _oracle,
         string memory _jobId
     ) public onlyOwner {
@@ -42,28 +37,20 @@ contract ATestnetConsumer is ChainlinkClient, ConfirmedOwner {
         );
         req.add(
             "get",
-            // "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD"
-            // "https://go360.foundation:5000/presale/sold"
-            "http://161.97.84.51:4884/api/isaddresswhitelisted?address=0xa084f998dA3B5D4e490D295f3E15A40379DBc787"
+            createString("http://161.97.84.51:4884/api/isaddresswhitelisted?address=", msg.sender)
         );
-        // req.add("path", "USD");
-        // req.addInt("times", 100);
         req.add("path", "result");
-        // req.addInt("times", 1);
+        req.add("user", toString(msg.sender));
         sendChainlinkRequestTo(_oracle, req, ORACLE_PAYMENT);
     }
 
     function fulfillEthereumPrice(
         bytes32 _requestId,
-        // uint256 _price
-        bool _price
+        bool _isInWhitelist,
+        address _user
     ) public recordChainlinkFulfillment(_requestId) {
-        emit RequestEthereumPriceFulfilled(_requestId, _price);
-        currentPrice = _price;
-    }
-
-    function getChainlinkToken() public view returns (address) {
-        return chainlinkTokenAddress();
+        emit RequestWhitelistInfoFulfilled(_requestId, _isInWhitelist);
+        isWhitelisted[_user] = _isInWhitelist;
     }
 
     function withdrawLink() public onlyOwner {
@@ -100,5 +87,23 @@ contract ATestnetConsumer is ChainlinkClient, ConfirmedOwner {
             // solhint-disable-line no-inline-assembly
             result := mload(add(source, 32))
         }
+    }
+
+    function createString(string memory str1, address user) internal pure returns (string memory result) {
+        return string(abi.encodePacked(str1, toString(user)));
+    }
+
+    function toString(address _addr) internal pure returns (string memory) {
+        bytes32 value = bytes32(uint256(uint160(_addr)));
+        bytes memory alphabet = "0123456789abcdef";
+
+        bytes memory str = new bytes(42);
+        str[0] = "0";
+        str[1] = "x";
+        for (uint256 i = 0; i < 20; i++) {
+            str[2 + i * 2] = alphabet[uint8(value[i + 12] >> 4)];
+            str[3 + i * 2] = alphabet[uint8(value[i + 12] & 0x0f)];
+        }
+        return string(str);
     }
 }
