@@ -1,0 +1,17 @@
+[Log]
+Level = 'warn'
+
+[WebServer]
+AllowOrigins = '\*'
+SecureCookies = false
+
+[WebServer.TLS]
+HTTPSPort = 0
+
+[[EVM]]
+ChainID = '11155111'
+
+[[EVM.Nodes]]
+Name = 'EthereumSepolia'
+WSURL = '<INFURA_WSS_URL_FOR_ETHEREUM_SEPOLIA_TESTNET>'
+HTTPURL = '<NFURA_HTTP_URL_FOR_ETHEREUM_SEPOLIA_TESTNET>'
