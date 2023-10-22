@@ -11,6 +11,8 @@ This allows for access to whitelist for addresses on EVM chains like Eehereum, A
 
 ### How it works
 
+![Infrastructure graph](/images/howitworks.svg)
+
 Backend represents simple example of centralized whitelist with public API that could be used by the company like TruFin.
 
 Chainlink nodes deployed to every needed chain request the data from this API and send it back to the smart contracts.
